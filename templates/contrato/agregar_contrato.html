@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Crear Nuevo Pedido</h2>
+<form method="post" class="card p-4">
+    {% csrf_token %}
+    
+    <div class="mb-3">
+        <label>Cliente</label>
+        <select name="cliente" class="form-select" required>
+            {% for c in clientes %}
+            <option value="{{ c.id }}">{{ c.nombre }} {{ c.apellido }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label>Servicio</label>
+        <select name="servicio" class="form-select" required>
+            {% for s in servicios %}
+            <option value="{{ s.id }}">{{ s.nombre_servicio }} (${{ s.precio }})</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label>Empleados Asignados (Mantén Ctrl para seleccionar varios)</label>
+        <select name="empleados" class="form-select" multiple size="4">
+            {% for e in empleados %}
+            <option value="{{ e.id }}">{{ e.nombre }} {{ e.apellido }} - {{ e.puesto }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label>Fecha Programada</label>
+        <input type="date" name="fecha_programada" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+        <label>Estado</label>
+        <select name="estado" class="form-select">
+            <option value="PENDIENTE">Pendiente</option>
+            <option value="EN_PROGRESO">En Progreso</option>
+            <option value="COMPLETADO">Completado</option>
+            <option value="CANCELADO">Cancelado</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label>Observaciones</label>
+        <textarea name="observaciones" class="form-control"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-success">Crear Pedido</button>
+</form>
+{% endblock %}

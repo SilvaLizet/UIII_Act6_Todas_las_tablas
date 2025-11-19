@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}Borrar Material{% endblock %}
+{% block content %}
+<h2 class="text-danger">Eliminar Material</h2>
+<div class="alert alert-warning p-4 shadow-sm">
+    <p>¿Estás seguro de que deseas eliminar el material: <strong>{{ material.nombre }}</strong>?</p>
+    <p class="mb-0">Esta acción no se puede deshacer.</p>
+</div>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Sí, Eliminar</button>
+    <a href="{% url 'ver_materiales' %}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}

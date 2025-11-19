@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2 class="text-danger">Borrar Servicio</h2>
+<div class="alert alert-danger p-4 shadow-sm">
+    <p>¿Seguro que deseas eliminar el servicio: <strong>{{ servicio.nombre_servicio }}</strong>?</p>
+    <p class="small">Si hay pedidos vinculados a este servicio, se eliminarán también.</p>
+</div>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Sí, Eliminar</button>
+    <a href="{% url 'ver_servicios' %}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}

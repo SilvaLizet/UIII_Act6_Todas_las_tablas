@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2 class="text-danger">Borrar Pedido</h2>
+<div class="alert alert-danger p-4 shadow-sm">
+    ¿Seguro que deseas eliminar el Pedido #{{ contrato.id }} (Cliente: {{ contrato.cliente.nombre }})?
+</div>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Sí, Eliminar</button>
+    <a href="{% url 'ver_contratos' %}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}

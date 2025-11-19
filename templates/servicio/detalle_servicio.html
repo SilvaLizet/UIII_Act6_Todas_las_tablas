@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Detalle del Servicio</h2>
+<div class="card border-success mb-4">
+    <div class="card-header bg-success text-white">
+        <h4 class="mb-0">{{ servicio.nombre_servicio }}</h4>
+    </div>
+    <div class="card-body">
+        <p><strong>Descripción:</strong> {{ servicio.descripcion }}</p>
+        <p><strong>Precio:</strong> ${{ servicio.precio }}</p>
+        <p><strong>Duración Estimada:</strong> {{ servicio.duracion_estimada_horas }} horas</p>
+        <p><strong>Tipo:</strong> {{ servicio.tipo_servicio }}</p>
+        <p><strong>Estado:</strong> {% if servicio.activo %}<span class="badge bg-success">Activo</span>{% else %}<span class="badge bg-danger">Inactivo</span>{% endif %}</p>
+    </div>
+</div>
+
+<h4>Pedidos que usan este servicio</h4>
+<div class="list-group">
+    {% for contrato in contratos_servicio %}
+    <a href="#" class="list-group-item list-group-item-action">
+        Contrato #{{ contrato.id }} - Cliente: {{ contrato.cliente }} ({{ contrato.fecha_programada }})
+    </a>
+    {% empty %}
+    <p class="text-muted">No hay pedidos vinculados a este servicio aún.</p>
+    {% endfor %}
+</div>
+<div class="mt-3">
+    <a href="{% url 'ver_servicios' %}" class="btn btn-secondary">Volver</a>
+</div>
+{% endblock %}

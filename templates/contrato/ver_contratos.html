@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2 class="text-success">Pedidos de Servicio</h2>
+<a href="{% url 'agregar_contrato' %}" class="btn btn-success mb-3">Nuevo Contrato</a>
+<table class="table table-bordered bg-white shadow-sm">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Cliente</th>
+            <th>Servicio</th>
+            <th>Fecha Programada</th>
+            <th>Estado</th>
+            <th>Empleados</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for c in contratos %}
+        <tr>
+            <td>{{ c.id }}</td>
+            <td>{{ c.cliente }}</td>
+            <td>{{ c.servicio }}</td>
+            <td>{{ c.fecha_programada }}</td>
+            <td>
+                <span class="badge bg-{% if c.estado == 'COMPLETADO' %}success{% elif c.estado == 'PENDIENTE' %}warning{% else %}secondary{% endif %}">
+                    {{ c.get_estado_display }}
+                </span>
+            </td>
+            <td>
+                {% for emp in c.empleados.all %}
+                    <small>{{ emp.nombre }}{% if not forloop.last %}, {% endif %}</small>
+                {% endfor %}
+            </td>
+            <td>
+                <a href="{% url 'actualizar_contrato' c.id %}" class="btn btn-sm btn-primary">Gestionar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
